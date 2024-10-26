@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
+import { DataContext } from '../App';
 
 const Home = () => {
 
@@ -21,8 +22,9 @@ const Home = () => {
 
 
 
-
-  const handleCardClick = (id) => {
+  const { setData } = useContext(DataContext);
+  const handleCardClick = (blog) => {
+    setData(blog);
     navigate(`/blog`);
   };
 
@@ -117,7 +119,7 @@ const Home = () => {
     <div style={styles.body}>
       {/* Navbar */}
       <nav style={styles.navbar}>
-        <h2 style={styles.navbarTitle}>My Blog</h2>
+        <h2 style={styles.navbarTitle}>Top Football Players Content Hub</h2>
         <div style={styles.authButtons}>
           <Link to="/register" style={{ textDecoration: 'none' }}>
             <button style={styles.button}>Register</button>
@@ -131,7 +133,7 @@ const Home = () => {
       {/* Blog Cards Container */}
       <div style={styles.blogCardsContainer}>
         {blog.map((blog) => (
-          <div style={styles.blogCard} key={blog._id} onClick={() => handleCardClick(blog._id)} >
+          <div style={styles.blogCard} key={blog._id} onClick={() => handleCardClick(blog)} >
             <div>
               <img src={blog.image} alt={blog.title} style={styles.blogCardImage} />
             </div>
